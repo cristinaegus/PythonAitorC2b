@@ -1,6 +1,6 @@
 import datetime
-
-class Empleado:
+from abc import ABC, abstractmethod
+class Empleado(ABC):
     def __init__(self, nombre, apellido1, apellido2, sueldo_hora=10):
         # Características
         self.nombre = nombre
@@ -52,6 +52,7 @@ class Empleado:
         print(f"Tiempo trabajado: {tiempo_trabajado}")
         return tiempo_trabajado
     
+    @abstractmethod
     def calcula_sueldo(self):
         tiempo_trabajado = self.__calcula_trabajo()
         sueldo = tiempo_trabajado.total_seconds() / 3600 * self.__sueldo_hora
@@ -76,6 +77,9 @@ class Directivo(Empleado):
         print("3. Presentaciones")
         print("4. Negociaciones")
 
+    def calcula_sueldo(self):
+        sueldo = super().calcula_sueldo()
+        return sueldo
 
 class Oficinista(Empleado):
     def __init__(self, nombre, apellido1, apellido2, sueldo_hora=20):
@@ -136,4 +140,5 @@ if __name__ == "__main__":
     print(director.fichajes)
     #print(director.calcula_trabajo())
     print(director.calcula_sueldo())
+    
     
